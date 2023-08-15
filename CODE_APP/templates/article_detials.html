@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content  %}
+
+
+<h1> {{post.title}} </h1>
+<small> by: {{post.author}} - {{ post.post_date }} </small>
+<br>
+{{post.body | safe }}
+
+
+{% if user.is_authenticated and user.id == post.author.id %}
+
+    <br>
+
+    <a href= "{% url 'update_post' post.pk %}" > edit<br>
+    <a href= "{% url 'delete_post' post.pk %}" > delete
+
+{% endif %} 
+
+{% endblock content  %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <h1>ADD category</h1>
+    <form method='POST'>
+        {% csrf_token %}
+        {{ form.as_p  }}
+        <br>
+        <button  class="btn btn-secondary">Add</button>
+        
+{% endif %}
+
+{% endblock content %}
+    
+    
