@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content  %}
+
+
+<h1> {{post.title}} </h1>
+<small> by: {{post.author}} - {{ post.post_date }} </small>
+<br>
+    {% if post.header_image %} 
+        <img src ="{{ post.header_image.url}}"> <br>
+    {% endif %}
+{{post.body | safe }}
+<br>
+<b>BIO </b>  
+{{post.author.profile.bio}}
+<br>
+
+<a href="{% url 'show_profile' post.author.profile.id  %}">  profile_page </a>
+<div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-2">
+        {% if post.author.profile.proife_pic  %}
+                <img src="{{ post.author.profile.proife_pic.url }}" alt="...">
+        {% else %}
+                <img src="{% static 'assets/images/default_profile.jpg' %}" alt="...">
+        {% endif %}
+      </div>
+      <div class="col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">{{post.author}}</h5>
+                <p class="card-text"><small class="text-muted">Socials heres
+                    
+                    {% if post.author.profile.website_url %}
+                        <a href="{{ post.author.profile.website_url }}">Website </a>| 
+                    {% endif %}
+
+                    {% if post.author.profile.facebook_url %}
+                        <a href="{{ post.author.profile.facebook_url }}">Facebook </a>| 
+                    {% endif %}
+
+                    {% if post.author.profile.linkedin_url %}
+                        <a href="{{ post.author.profile.linkedin_url }}">Facebook </a>| 
+                    {% endif %}
+                    
+                </small></p>
+          <p class="card-text">{{post.author.profile.bio}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% if user.is_authenticated and user.id == post.author.id %}
+
+    <br>
+
+    <a href= "{% url 'update_post' post.pk %}" > edit<br>
+    <a href= "{% url 'delete_post' post.pk %}" > delete
+
+{% endif %} 
+
+
+
+{% endblock content  %}

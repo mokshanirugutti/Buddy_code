@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if category_posts  %} 
+<h1> category </h1>
+{{ cats }}
+       {% for post in category_posts %}
+       <li>
+        <a href= "{% url 'article_detail' post.pk %}" > {{ post.title }} - {{ post.author }} - {{ post.post_date }}  <br>
+            {% comment %} post body slice:":200" {% endcomment %}
+       </li>
+       
+       {% endfor %}
+{% else %}
+       <h1> 404! </h1>
+{% endif %}
+        
+{% endblock content %}
